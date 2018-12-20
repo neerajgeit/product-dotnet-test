@@ -1,1 +1,1 @@
-# product-dotnet-test
+# product-sku-test
