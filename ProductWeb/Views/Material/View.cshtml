@@ -5,7 +5,9 @@
     var id = 1;
 }
 
-<p><input type="button" value="Back" onclick="window.history.back()" /></p>
+@*<p><input type="button" value="Back" onclick="window.history.back()" /></p>*@
+
+<p>@Html.ActionLink("Back", "Index")</p>
 
 @foreach (var item in Model)
 {
@@ -78,7 +80,8 @@
     Merget
 
 </p>
-<p><input type="button" value="Back" onclick="window.history.back()" /></p>
+@*<p><input type="button" value="Back" onclick="window.history.back()" /></p>*@
+<p>@Html.ActionLink("Back", "Index")</p>
 
 @section scripts{
 
