@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Web", "ProductWeb\Product.Web.csproj", "{2FC581D8-D0F3-4818-909D-76AE3ACE534B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Data", "..\Product.Data\Product.Data.csproj", "{D5B3A829-616D-49BF-8BEE-12FC981102B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Data", "Product.Data\Product.Data.csproj", "{D5B3A829-616D-49BF-8BEE-12FC981102B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Services", "Product.Services\Product.Services.csproj", "{C9583930-AB92-4379-BDD3-81BED4A2499E}"
 EndProject
