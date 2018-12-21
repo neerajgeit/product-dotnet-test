@@ -35,17 +35,6 @@ namespace Product.Data.Migrations
             {
                 return;
             }
-            entity = context.Products.Add(entity);
-
-            foreach (var productMaterial in entity.ProductMaterials)
-            {
-                var existingProductMaterial = context.ProductMaterials.FirstOrDefault(x => x.Quantity == productMaterial.Quantity && x.ProductId == productMaterial.ProductId && x.MaterialId == productMaterial.MaterialId);
-
-                if (existingProductMaterial == null)
-                {
-                    context.ProductMaterials.Add(productMaterial);
-                }
-            }
 
             context.SaveChanges();
         }

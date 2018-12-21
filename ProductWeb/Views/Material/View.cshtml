@@ -1,18 +1,144 @@
-﻿@model Product.DomainObjects.Models.MaterialModel
-
+﻿@*@model Product.DomainObjects.Models.MaterialModel*@
+@model IEnumerable<Product.DomainObjects.Models.MaterialModel>
 @{
     ViewBag.Title = "Material";
+    var id = 1;
 }
 
-<h2>@Model.Name</h2>
+<p><input type="button" value="Back" onclick="window.history.back()" /></p>
 
-<div>
-    ID: $@Model.MaterialId
-</div>
-<div>
-    Cost: $@Model.Cost
-</div>
+@foreach (var item in Model)
+{
+
+    if (item.MaterialId == @ViewBag.SelectedMaterialId)
+    {
+        id++;
+        <h2>@item.Name</h2>
+        <div>
+            ID: $ @item.MaterialId
+        </div>
+        <div>
+            Cost: $ @item.Cost
+        </div>
+
+        <div>Please select the Material from below which you want to merge with this Material i.e.<strong>@item.Name</strong></div>
+    }
+}
+@if (id == 1)
+{
+    <div><strong>No Material is associate with the products, so no Merging allowed.</strong></div>
+}
+<table class="table">
+    <tr>
+        <th>Check</th>
+        <th>Name</th>
+        <th>MaterialId</th>
+        <th>Cost</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        {
+            if (item.MaterialId != @ViewBag.SelectedMaterialId)
+            {
+
+
+                <tr>
+
+                    <td>@Html.CheckBox("isMerge", false, new { value = item.MaterialId, id = item.MaterialId })</td>
+                    <td>@item.Name</td>
+                    <td>@item.MaterialId</td>
+                    <td>@item.Cost</td>
+                </tr>
+            }
+        }
+    }
+</table>
+
+@*<h2>@Model.Name</h2>
+    <div>
+        ID: $@Model.MaterialId
+    </div>
+    <div>
+        Cost: $@Model.Cost
+    </div>*@
 <p>
-    <button class="btn btn-warning">Merge</button>
+    @if (id > 1)
+    {
+        <button id="merge" class="btn btn-warning">Merge</button>
+    }
+    else
+    {
+        <div><strong>No Material is associate with the products, so no Merging allowed.</strong></div>
+    }
     Please implement a Merge functionality from here.
+    Get the list of all other Material material
+    select which you want to merge
+    Merget
+
 </p>
+<p><input type="button" value="Back" onclick="window.history.back()" /></p>
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#merge').click(function () {
+                alert('Merge clicked');
+                //var mergeID = $('input[name="isMerge"]:checked');
+                var mergeID = $("input[name=isMerge]:checked").map(
+                    function () { return this.value; }).get().join(",");
+
+                var data = JSON.stringify({
+                    'materialIdToKeep' : @ViewBag.SelectedMaterialId,
+                    'materialIdToDelete' : mergeID
+                });
+
+                debugger;
+                var url = '@Url.Action("Material", "Merge", new { materialIdToKeep = @ViewBag.SelectedMaterialId,materialIdToDelete = "neeraj" }, null)';
+                url = url.replace("neeraj", mergeID)
+
+                    $.ajax({
+                    url: '@Url.Action("Merge", "Material")',
+                        data: data,
+                         type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function(data){
+                            alert("Merging has done successfully, check ProdcutMaterials table for Quantity update.");
+                            $.post('/Material/Index/', function (result) {
+                                // Do something with the result like for example inject it into
+                                // some placeholder and update the DOM.
+                                // This obviously assumes that your controller action returns
+                                // a partial view otherwise you will break your markup
+                            });
+                     },
+                     error: function (xhr, status, error) {
+                         //TODO: There is some error will sort out latter
+                         debugger;
+                         $.post('/Material/Index/', function (result) {
+                             // Do something with the result like for example inject it into
+                             // some placeholder and update the DOM.
+                             // This obviously assumes that your controller action returns
+                             // a partial view otherwise you will break your markup
+                         });
+                    }
+
+                });
+
+
+
+                //$.ajax({
+                //            type: "POST",
+                //             url: url,
+                //    success: function () { alert('Success'); },
+                //    error: function () {alert('error')}
+                //        });
+
+            });
+    });
+    </script>
+
+}

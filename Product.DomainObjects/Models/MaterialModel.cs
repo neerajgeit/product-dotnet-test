@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Product.DomainObjects.Models
 {
@@ -9,5 +10,7 @@ namespace Product.DomainObjects.Models
         public String Name { get; set; }
 
         public Decimal Cost { get; set; }
+
+        public IList<ProductMaterialModel> Materials { get; set; }
     }
 }
