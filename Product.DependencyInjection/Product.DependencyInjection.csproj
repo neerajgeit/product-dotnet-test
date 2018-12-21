@@ -90,7 +90,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Product.Data\Product.Data.csproj">
+    <ProjectReference Include="..\Product.Data\Product.Data.csproj">
       <Project>{d5b3a829-616d-49bf-8bee-12fc981102b7}</Project>
       <Name>Product.Data</Name>
     </ProjectReference>
