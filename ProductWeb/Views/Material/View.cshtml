@@ -97,17 +97,18 @@
                 });
 
                 debugger;
-                var url = '@Url.Action("Material", "Merge", new { materialIdToKeep = @ViewBag.SelectedMaterialId,materialIdToDelete = "neeraj" }, null)';
-                url = url.replace("neeraj", mergeID)
+                @*var url = '@Url.Action("Material", "Merge", new { materialIdToKeep = @ViewBag.SelectedMaterialId,materialIdToDelete = "neeraj" }, null)';
+                url = url.replace("neeraj", mergeID)*@
 
-                    $.ajax({
+                $.ajax({
                     url: '@Url.Action("Merge", "Material")',
-                        data: data,
+                     data: data,
+                    //data: { 'materialIdToKeep': @ViewBag.SelectedMaterialId, 'materialIdToDelete':  mergeID },
                          type: 'POST',
                         dataType: 'json',
                         contentType: 'application/json',
                         success: function(data){
-                            alert("Merging has done successfully, check ProdcutMaterials table for Quantity update.");
+                            alert("Merging has done successfully, check ProductMaterials table for Quantity update.");
                             $.post('/Material/Index/', function (result) {
                                 // Do something with the result like for example inject it into
                                 // some placeholder and update the DOM.
@@ -116,14 +117,10 @@
                             });
                      },
                      error: function (xhr, status, error) {
-                         //TODO: There is some error will sort out latter
+                         //TODO: There is some error will sort out latter, as of now just refreshing page to show the result
                          debugger;
-                         $.post('/Material/Index/', function (result) {
-                             // Do something with the result like for example inject it into
-                             // some placeholder and update the DOM.
-                             // This obviously assumes that your controller action returns
-                             // a partial view otherwise you will break your markup
-                         });
+                         location.reload();
+                         //alert(error);
                     }
 
                 });
